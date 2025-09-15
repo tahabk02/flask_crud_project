@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Mes Tâches - Flask Task Manager{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Mes Tâches</h1>
+    <a href="{{ url_for('create_task') }}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Nouvelle Tâche
+    </a>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form method="GET" action="{{ url_for('user_dashboard') }}" class="row g-3">
+                    <div class="col-md-3">
+                        <label for="status" class="form-label">Statut</label>
+                        <select class="form-select" id="status" name="status">
+                            <option value="">Tous</option>
+                            <option value="pending" {% if request.args.get('status') == 'pending' %}selected{% endif %}>En attente</option>
+                            <option value="in_progress" {% if request.args.get('status') == 'in_progress' %}selected{% endif %}>En cours</option>
+                            <option value="completed" {% if request.args.get('status') == 'completed' %}selected{% endif %}>Terminé</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="priority" class="form-label">Priorité</label>
+                        <select class="form-select" id="priority" name="priority">
+                            <option value="">Tous</option>
+                            <option value="low" {% if request.args.get('priority') == 'low' %}selected{% endif %}>Basse</option>
+                            <option value="medium" {% if request.args.get('priority') == 'medium' %}selected{% endif %}>Moyenne</option>
+                            <option value="high" {% if request.args.get('priority') == 'high' %}selected{% endif %}>Haute</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="search" class="form-label">Recherche</label>
+                        <input type="text" class="form-control" id="search" name="search" 
+                               placeholder="Rechercher une tâche..." value="{{ request.args.get('search', '') }}">
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if tasks %}
+<div class="row">
+    {% for task in tasks %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">{{ task.title }}</h5>
+                <span class="badge bg-{% if task.priority == 'high' %}danger{% elif task.priority == 'medium' %}warning{% else %}info{% endif %}">
+                    {{ task.priority|upper }}
+                </span>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{ task.description|truncate(100) }}</p>
+                <div class="mb-2">
+                    <strong>Statut:</strong> 
+                    <span class="badge bg-{% if task.status == 'completed' %}success{% elif task.status == 'in_progress' %}primary{% else %}warning{% endif %}">
+                        {% if task.status == 'completed' %}Terminé{% elif task.status == 'in_progress' %}En cours{% else %}En attente{% endif %}
+                    </span>
+                </div>
+                <div class="mb-2">
+                    <strong>Échéance:</strong> 
+                    {% if task.due_date %}
+                        {{ task.due_date.strftime('%d/%m/%Y') }}
+                    {% else %}
+                        Non définie
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-footer bg-transparent">
+                <div class="d-flex justify-content-between">
+                    <a href="{{ url_for('update_task', task_id=task.id) }}" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-edit"></i> Modifier
+                    </a>
+                    <a href="{{ url_for('delete_task', task_id=task.id) }}" class="btn btn-sm btn-outline-danger" 
+                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?')">
+                        <i class="fas fa-trash"></i> Supprimer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info text-center">
+    <h4>Aucune tâche trouvée</h4>
+    <p>Vous n'avez pas encore de tâches ou aucun résultat ne correspond à vos filtres.</p>
+    <a href="{{ url_for('create_task') }}" class="btn btn-primary mt-2">Créer votre première tâche</a>
+</div>
+{% endif %}
+{% endblock %}

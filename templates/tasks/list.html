@@ -1,0 +1,66 @@
+{% extends "base.html" %} {% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <h2>Mes Tâches</h2>
+    <a href="{{ url_for('create_task') }}" class="btn btn-primary mb-3"
+      >Nouvelle Tâche</a
+    >
+
+    {% if tasks %}
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Statut</th>
+            <th>Priorité</th>
+            <th>Date d'échéance</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for task in tasks %}
+          <tr>
+            <td>{{ task.title }}</td>
+            <td>
+              <span
+                class="badge {% if task.status == 'completed' %}bg-success {% elif task.status == 'in_progress' %}bg-primary {% else %}bg-secondary{% endif %}"
+              >
+                {{ task.status }}
+              </span>
+            </td>
+            <td>
+              <span
+                class="badge {% if task.priority == 'high' %}bg-danger {% elif task.priority == 'medium' %}bg-warning {% else %}bg-info{% endif %}"
+              >
+                {{ task.priority }}
+              </span>
+            </td>
+            <td>
+              {{ task.due_date.strftime('%Y-%m-%d') if task.due_date else 'N/A'
+              }}
+            </td>
+            <td>
+              <a
+                href="{{ url_for('update_task', id=task.id) }}"
+                class="btn btn-sm btn-warning"
+                >Modifier</a
+              >
+              <a
+                href="{{ url_for('delete_task', id=task.id) }}"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Êtes-vous sûr?')"
+                >Supprimer</a
+              >
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">Vous n'avez aucune tâche pour le moment.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

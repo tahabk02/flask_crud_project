@@ -1,0 +1,129 @@
+{% extends "base.html" %} {% block title %}Accueil - Flask Task Manager{%
+endblock %} {% block content %}
+<div class="jumbotron bg-light py-5 mb-5 rounded">
+  <div class="container">
+    <h1 class="display-4">Bienvenue sur Flask Task Manager</h1>
+    <p class="lead">
+      Une application simple et efficace pour gérer vos tâches quotidiennes.
+    </p>
+    <hr class="my-4" />
+    <p>
+      Organisez votre travail, priorisez vos activités et augmentez votre
+      productivité.
+    </p>
+    {% if not current_user.is_authenticated %}
+    <div class="mt-4">
+      <a
+        class="btn btn-primary btn-lg me-2"
+        href="{{ url_for('signup') }}"
+        role="button"
+        >Créer un compte</a
+      >
+      <a
+        class="btn btn-outline-secondary btn-lg"
+        href="{{ url_for('login') }}"
+        role="button"
+        >Se connecter</a
+      >
+    </div>
+    {% else %}
+    <div class="mt-4">
+      <a
+        class="btn btn-primary btn-lg me-2"
+        href="{% if current_user.is_admin %}{{ url_for('admin_dashboard') }}{% else %}{{ url_for('user_dashboard') }}{% endif %}"
+        role="button"
+      >
+        Accéder à mon tableau de bord
+      </a>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="col-md-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="fas fa-tasks fa-3x text-primary mb-3"></i>
+        <h3 class="card-title">Gestion des Tâches</h3>
+        <p class="card-text">
+          Créez, modifiez et organisez vos tâches facilement avec une interface
+          intuitive.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="fas fa-sort-amount-down-alt fa-3x text-primary mb-3"></i>
+        <h3 class="card-title">Priorisation</h3>
+        <p class="card-text">
+          Attribuez des priorités à vos tâches pour vous concentrer sur
+          l'essentiel.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 border-0 shadow-sm">
+      <div class="card-body text-center">
+        <i class="fas fa-chart-line fa-3x text-primary mb-3"></i>
+        <h3 class="card-title">Suivi de Progression</h3>
+        <p class="card-text">
+          Suivez l'avancement de vos tâches et visualisez votre productivité.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">Fonctionnalités</h4>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            Création et gestion illimitée de tâches
+          </li>
+          <li class="list-group-item">
+            Système de priorités (haute, moyenne, basse)
+          </li>
+          <li class="list-group-item">Dates d'échéance et rappels</li>
+          <li class="list-group-item">
+            Statuts de progression (en attente, en cours, terminé)
+          </li>
+          <li class="list-group-item">
+            Interface responsive adaptée à tous les appareils
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <h4 class="mb-0">À propos de nous</h4>
+      </div>
+      <div class="card-body">
+        <p>
+          Flask Task Manager a été développé pour répondre aux besoins de
+          gestion de tâches des particuliers et des petites équipes.
+        </p>
+        <p>
+          Notre objectif est de fournir un outil simple mais puissant pour
+          améliorer votre productivité sans complications inutiles.
+        </p>
+        <div class="text-center mt-3">
+          <a href="{{ url_for('about') }}" class="btn btn-outline-primary"
+            >En savoir plus</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

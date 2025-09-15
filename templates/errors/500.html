@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Erreur 500 - Flask Task Manager</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{{ url_for('home') }}">TaskManager</a>
+      </div>
+    </nav>
+
+    <main
+      class="flex-fill text-center d-flex flex-column justify-content-center align-items-center mt-5"
+    >
+      <h1 class="display-1 text-danger">500</h1>
+      <h2 class="mb-4">Erreur Interne du Serveur</h2>
+      <p class="mb-4">Désolé, quelque chose s'est mal passé sur le serveur.</p>
+      <a href="{{ url_for('home') }}" class="btn btn-primary"
+        >Retour à l'accueil</a
+      >
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+      <div class="container">
+        <p>&copy; 2025 Flask Task Manager. Tous droits réservés.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

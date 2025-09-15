@@ -1,0 +1,79 @@
+{% extends "base.html" %} {% block title %}À propos - Flask Task Manager{%
+endblock %} {% block content %}
+<div class="row">
+  <div class="col-lg-8 mx-auto">
+    <h1 class="display-4 text-center mb-5">À propos de Flask Task Manager</h1>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h3 class="card-title">Notre Mission</h3>
+        <p class="card-text">
+          Flask Task Manager a été créé dans le but de simplifier la gestion des
+          tâches quotidiennes pour les particuliers et les petites équipes. Nous
+          croyons que la productivité ne devrait pas être compliquée par des
+          outils surchargés de fonctionnalités.
+        </p>
+        <p>
+          Notre application offre l'essentiel pour organiser votre travail sans
+          vous submerger d'options superflues, tout en maintenant une interface
+          intuitive et agréable.
+        </p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h3 class="card-title">Notre Histoire</h3>
+        <p class="card-text">
+          Développée initialement comme projet open source, Flask Task Manager a
+          évolué pour devenir une solution robuste et fiable. Notre communauté
+          de développeurs contribue continuellement à l'amélioration de
+          l'application.
+        </p>
+        <p>
+          Basée sur le framework Flask de Python, notre application demonstrate
+          comment construire une application web complète avec des
+          fonctionnalités modernes.
+        </p>
+      </div>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+      <div class="card-body">
+        <h3 class="card-title">Fonctionnalités Clés</h3>
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Gestion simplifiée des tâches</li>
+              <li class="list-group-item">Système de priorités intuitif</li>
+              <li class="list-group-item">Dates d'échéance et rappels</li>
+              <li class="list-group-item">Suivi de progression visuel</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Interface responsive</li>
+              <li class="list-group-item">Sécurité des données</li>
+              <li class="list-group-item">Gestion multi-utilisateurs</li>
+              <li class="list-group-item">Tableaux de bord personnalisés</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <h3 class="card-title">Contactez-nous</h3>
+        <p class="card-text">
+          Vous avez des questions ou des suggestions ? Nous serions ravis de
+          vous entendre.
+        </p>
+        <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg"
+          >Nous contacter</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
